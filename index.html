@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Last Call Invitational</title>
+<meta name="description" content="The Last Call Invitational — 40th Annual, since 1987. A private golf tournament tradition.">
+<!-- ============================================================
+     THE LAST CALL INVITATIONAL — modern rebuild (Pards theme)
+     Single static file. No build step. Palette + fonts match the
+     Pards registration page (register.html) so the site → register
+     handoff is seamless.
+
+     CONTENT IS REAL — pulled from the live Wix site Aug 12 2026:
+     champions 1987–2025 (+ results PDF links), both award stories,
+     Keeley recipients, contact (Ryan Lauber). Remaining SWAPs are
+     PHOTOS ONLY (hero, gallery tiles, two portraits — currently
+     hotlinking Wix media) and the optional SmugMug slideshow embed.
+     Results PDFs also live on Wix — download them into /results/
+     before the Wix site is retired (see GO-LIVE.md).
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --linen:#f6f2e9; --linen-deep:#efe9db; --ink:#22211c; --ink-soft:#5b584e;
+    --green:#1d4a38; --green-deep:#143526; --brass:#a8863c; --brass-soft:#c3a86b;
+    --hair:rgba(34,33,28,.18); --card:#fbf8f1; --bad:#8c3b2e;
+    --brass-line:rgba(168,134,60,.55); --brass-faint:rgba(168,134,60,.18);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--linen); color:var(--ink);
+    font-family:'Jost',sans-serif; font-weight:400; font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  .eyebrow{
+    font-size:12px; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--brass); font-weight:600;
+  }
+  .serif{font-family:'Cormorant Garamond',serif;}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif; font-weight:600; line-height:1.12; color:var(--green-deep);}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+
+  /* ---------- header / nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,53,38,.97); color:var(--linen);
+    border-bottom:1px solid rgba(168,134,60,.35);
+    backdrop-filter:saturate(120%) blur(2px);
+  }
+  .navbar{display:flex; align-items:center; justify-content:space-between; gap:16px; height:66px;}
+  .brand{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--linen);}
+  .brand .mark{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--brass-soft);}
+  .brand .est{font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(246,242,233,.6);}
+  nav.links{display:flex; gap:4px; align-items:center;}
+  nav.links a{
+    text-decoration:none; color:rgba(246,242,233,.82); font-size:13.5px;
+    letter-spacing:.08em; text-transform:uppercase; padding:8px 12px; border-radius:3px;
+    transition:color .18s, background .18s;
+  }
+  nav.links a:hover{color:var(--linen);}
+  nav.links a.active{color:var(--brass-soft);}
+  nav.links a.cta{
+    background:var(--brass); color:var(--green-deep); font-weight:600; margin-left:6px;
+  }
+  nav.links a.cta:hover{background:var(--brass-soft); color:var(--green-deep);}
+  .burger{display:none; background:none; border:1px solid rgba(246,242,233,.3); color:var(--linen);
+    width:40px; height:38px; border-radius:4px; cursor:pointer; font-size:18px;}
+
+  /* ---------- section machinery ---------- */
+  .view{display:none;}
+  .view.on{display:block; animation:fade .4s ease both;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  .section{padding:64px 0;}
+  .section.tight{padding:44px 0;}
+  .lede{max-width:660px;}
+  .lede h2{font-size:38px; font-style:italic; margin-bottom:8px;}
+  .lede p{color:var(--ink-soft);}
+
+  /* ---------- framed invitation card (the signature) ---------- */
+  .frame{
+    background:var(--card); border:1px solid var(--hair); border-radius:4px;
+    box-shadow:0 1px 0 rgba(34,33,28,.04), 0 14px 40px rgba(34,33,28,.07);
+    position:relative; padding:34px 30px;
+  }
+  .frame::before{
+    content:''; position:absolute; inset:8px; pointer-events:none;
+    border:1px solid var(--brass-faint); border-radius:2px;
+  }
+  .frame > *{position:relative;}
+  .frame .cap{ text-align:center; font-size:11px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin-bottom:6px;}
+  .rule{border:0; border-top:1px solid var(--brass-line); width:72px; margin:16px auto;}
+  .rule.left{margin:16px 0;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; min-height:78vh; display:flex; align-items:center; justify-content:center;
+    text-align:center; color:var(--linen); overflow:hidden; background:var(--green-deep);
+  }
+  .hero .bg{position:absolute; inset:0; background-size:cover; background-position:center;
+    /* SWAP: replace this Wix URL with a SmugMug hero photo */
+    background-image:url('https://static.wixstatic.com/media/3b499f_d93ff69d7b994881ab43ad32148a16cc~mv2.jpg');
+    filter:saturate(.92);}
+  .hero .scrim{position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,53,38,.62) 0%, rgba(20,53,38,.72) 55%, rgba(20,53,38,.9) 100%);}
+  .hero .inner{position:relative; padding:80px 22px; max-width:820px;}
+  .hero .eyebrow{color:var(--brass-soft);}
+  .hero h1{color:var(--linen); font-style:italic; font-size:clamp(44px,7vw,84px); margin:14px 0 6px;}
+  .hero .kicker{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(19px,2.4vw,26px);
+    color:rgba(246,242,233,.9); margin-bottom:26px;}
+  .btnrow{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; text-decoration:none; cursor:pointer; border:0; border-radius:3px;
+    padding:14px 26px; font-family:'Jost',sans-serif; font-size:14px; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase; transition:background .18s, color .18s, border-color .18s;
+  }
+  .btn.gold{background:var(--brass); color:var(--green-deep);}
+  .btn.gold:hover{background:var(--brass-soft);}
+  .btn.green{background:var(--green); color:var(--linen);}
+  .btn.green:hover{background:var(--green-deep);}
+  .btn.ghost{background:transparent; color:var(--linen); border:1px solid rgba(246,242,233,.55);}
+  .btn.ghost:hover{border-color:var(--brass-soft); color:var(--brass-soft);}
+  .btn.ghost-green{background:transparent; color:var(--green); border:1px solid var(--green);}
+  .btn.ghost-green:hover{background:rgba(29,74,56,.07);}
+
+  /* ---------- champions strip on home ---------- */
+  .strip{background:var(--linen-deep);}
+  .cardgrid{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:26px;}
+  .win h3{font-size:24px; font-style:italic;}
+  .win .who{margin-top:8px; color:var(--ink);}
+  .win .who .name{font-weight:500;}
+  .win .badge{display:inline-block; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin-bottom:2px;}
+
+  /* ---------- about ---------- */
+  .about{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:center;}
+  .about .body p{margin-bottom:14px; color:var(--ink);}
+  .about .body p.big{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px; color:var(--green-deep); line-height:1.35;}
+  .about .figure img{border:1px solid var(--hair); border-radius:4px;}
+  .about .figure .cap{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:8px; letter-spacing:.06em;}
+
+  /* ---------- register ---------- */
+  .regwrap{display:grid; grid-template-columns:1fr; gap:26px; max-width:520px; margin:26px auto 0;}
+  .regframe{padding:0; overflow:hidden;}
+  .regframe iframe{width:100%; height:1060px; border:0; display:block; background:var(--linen);}
+  .reg-intro{text-align:center;}
+  .reg-intro p{color:var(--ink-soft); margin:6px 0 4px;}
+  .callout{text-align:center; font-size:14px; color:var(--ink-soft); margin-top:18px;}
+
+  /* ---------- honors ---------- */
+  .honor{margin-top:26px;}
+  .honor h3{font-size:30px; font-style:italic; margin-bottom:4px;}
+  .honor .years{margin-top:14px; font-size:14.5px; color:var(--ink-soft);}
+  .honor .placeholder{color:var(--ink-soft); font-style:italic;}
+
+  /* ---------- champions table ---------- */
+  .champtable{width:100%; border-collapse:collapse; margin-top:22px; font-size:15.5px;}
+  .champtable th{ text-align:left; font-family:'Jost',sans-serif; font-weight:600; font-size:11px;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--brass); padding:10px 12px;
+    border-bottom:1px solid var(--brass-line);}
+  .champtable td{padding:13px 12px; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .champtable tr:nth-child(even) td{background:rgba(34,33,28,.02);}
+  .champtable .yr{font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--green-deep); white-space:nowrap;}
+  .champtable .nm{font-weight:500;}
+  .addrow td{color:var(--ink-soft); font-style:italic; text-align:center;}
+
+  /* ---------- gallery ---------- */
+  .gallery-note{max-width:620px; margin-bottom:22px; color:var(--ink-soft);}
+  .ggrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .ggrid .tile{position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:3px; border:1px solid var(--hair);}
+  .ggrid .tile img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .ggrid .tile:hover img{transform:scale(1.05);}
+  .embed-slot{
+    margin-top:26px; border:1px dashed var(--brass-line); border-radius:4px; padding:34px 24px;
+    text-align:center; color:var(--ink-soft); background:rgba(168,134,60,.05);
+  }
+  .embed-slot strong{color:var(--green-deep); font-weight:600;}
+  .embed-slot code{font-family:ui-monospace,Menlo,monospace; font-size:13px; background:#fff;
+    border:1px solid var(--hair); padding:2px 6px; border-radius:3px;}
+
+  /* ---------- contact ---------- */
+  .contact-card{max-width:520px; margin:26px auto 0; text-align:center;}
+  .contact-card p{color:var(--ink-soft); margin:8px 0;}
+  .contact-card .email{font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--green-deep);}
+
+  /* ---------- footer ---------- */
+  footer.site{background:var(--green-deep); color:rgba(246,242,233,.72); text-align:center; padding:34px 22px;}
+  footer.site .mark{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--brass-soft);}
+  footer.site .small{font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-top:8px;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:820px){
+    nav.links{position:absolute; top:66px; left:0; right:0; flex-direction:column; align-items:stretch;
+      gap:0; background:var(--green-deep); padding:8px 14px 16px; border-bottom:1px solid rgba(168,134,60,.35);
+      display:none;}
+    nav.links.open{display:flex;}
+    nav.links a{padding:12px 8px;}
+    nav.links a.cta{margin:8px 0 0;}
+    .burger{display:block;}
+    .cardgrid{grid-template-columns:1fr;}
+    .about{grid-template-columns:1fr; gap:26px;}
+    .ggrid{grid-template-columns:1fr 1fr;}
+    .section{padding:48px 0;}
+    .lede h2{font-size:32px;}
+  }
+  @media (max-width:520px){ .ggrid{grid-template-columns:1fr;} }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .view.on{animation:none;}
+    .ggrid .tile:hover img{transform:none;}
+  }
+  a.btn:focus-visible, nav.links a:focus-visible, .burger:focus-visible{
+    outline:2px solid var(--brass-soft); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap navbar">
+    <a href="#home" class="brand" data-nav>
+      <span class="mark">The Last Call</span>
+      <span class="est">Est. 1987</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="links" id="menu">
+      <a href="#home" data-nav>Home</a>
+      <a href="#honors" data-nav>Honors</a>
+      <a href="#champions" data-nav>Champions</a>
+      <a href="#gallery" data-nav>Gallery</a>
+      <a href="#contact" data-nav>Contact</a>
+      <a href="#register" data-nav class="cta">Register 2026</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===================== HOME ===================== -->
+  <section class="view" id="home">
+    <div class="hero">
+      <div class="bg"></div>
+      <div class="scrim"></div>
+      <div class="inner">
+        <div class="eyebrow">Est. 1987 · 40th Annual</div>
+        <h1>The Last&nbsp;Call Invitational</h1>
+        <div class="kicker">Four decades of friends, fairways, and the Armand Comeau Cup.</div>
+        <div class="btnrow">
+          <a href="#register" class="btn gold" data-nav>Register for 2026</a>
+          <a href="#champions" class="btn ghost" data-nav>Meet the champions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section tight strip">
+      <div class="wrap">
+        <div class="eyebrow" style="text-align:center">Our 2025 Winners</div>
+        <div class="cardgrid">
+          <div class="frame win">
+            <span class="badge">Armand Comeau Cup</span>
+            <h3>2025 Champions</h3>
+            <div class="who">
+              <div class="name">Heiko Claasen · Doug Woytkiw</div>
+              <div class="name">Conroy Ip · Keith Kendrick</div>
+            </div>
+          </div>
+          <div class="frame win">
+            <span class="badge">Bill Keeley Award</span>
+            <h3>Craig McElroy</h3>
+            <div class="who" style="color:var(--ink-soft)">For the spirit of competition, as voted by his peers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="wrap about">
+        <div class="body">
+          <div class="eyebrow">The Tradition</div>
+          <p class="big">Since 1987, the Last Call has closed the season the same way — one field, one long day, and a trophy worth arguing over all winter.</p>
+          <p>Born from the Lizard Open at the Derrick Golf &amp; Winter Club, the Last Call has closed the season every year since 1987. Teams play for the Armand Comeau Cup; the Bill Keeley Award honours the player who best carries the spirit of the thing; everyone plays for the story they'll tell at the nineteenth hole.</p>
+          <p>The 2026 Invitational — the 40th — carries all of it forward. If you've been here before, you know. If you haven't, consider this your invitation.</p>
+          <a href="#register" class="btn ghost-green" data-nav style="margin-top:6px">Register for 2026</a>
+        </div>
+        <div class="figure">
+          <!-- SWAP: SmugMug photo -->
+          <img src="https://static.wixstatic.com/media/3b499f_4d10545be159404fbb85fcadc478652b~mv2.jpg" alt="Last Call Invitational">
+          <div class="cap">The 2025 Invitational</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== REGISTER ===================== -->
+  <section class="view" id="register">
+    <div class="section">
+      <div class="wrap">
+        <div class="lede" style="margin:0 auto; text-align:center">
+          <div class="eyebrow">2026 · 40th Annual</div>
+          <h2 style="font-size:40px">Register</h2>
+          <p>Registration is handled through the Pards Tour tournament system — the same place the day is run from, so your RSVP lands straight on the field.</p>
+        </div>
+
+        <div class="regwrap">
+          <div class="frame reg-intro">
+            <div class="cap">You are invited</div>
+            <p>Fill out the form below, or open it in its own window.</p>
+            <a class="btn green" href="https://pardstour.com/register.html?e=939160" target="_blank" rel="noopener">Open registration</a>
+            <div class="callout">Playing day-of? The same page opens the sign-in sheet with your staff PIN.</div>
+          </div>
+
+          <div class="frame regframe">
+            <!-- Live Pards registration form for the Last Call (event code 939160) -->
+            <iframe src="https://pardstour.com/register.html?e=939160" title="2026 Registration" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HONORS ===================== -->
+  <section class="view" id="honors">
+    <div class="section">
+      <div class="wrap">
+        <div class="lede">
+          <div class="eyebrow">Awards &amp; Honors</div>
+          <h2>What we play for</h2>
+          <p>Two honors have anchored the Invitational for years — one for the team that conquers the field, one for the player who embodies its spirit.</p>
+        </div>
+
+        <div class="frame honor">
+          <span class="eyebrow">The Team Trophy</span>
+          <h3>The Armand Comeau Cup</h3>
+          <hr class="rule left">
+          <div style="display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap;">
+            <!-- SWAP-PHOTO: Armand's portrait — currently Wix-hosted; move to SmugMug/repo -->
+            <img src="https://static.wixstatic.com/media/3b499f_81ea0135802a44ab93e4bd4f24467867~mv2.jpg/v1/crop/x_0,y_97,w_610,h_610/fill/w_200,h_200,al_c,q_80/Armand%20Comeau.jpg" alt="Armand Comeau" style="width:130px; height:130px; object-fit:cover; border-radius:50%; border:2px solid var(--brass-line); flex:none;">
+            <div style="flex:1; min-width:260px;">
+              <p style="margin-bottom:12px;">In 2008, the Last Call Cup was renamed the Armand Comeau Cup in memory of Armand, who passed in August 2008.</p>
+              <p style="margin-bottom:12px;">Armand was the General Manager of the Derrick Golf and Winter Club from 1961–1967, served on the Board of Directors in the early eighties, and was President in 1987. All who had the chance to meet Armand — and perhaps share a pint or two — will remember his excellent sense of humour and constant good nature.</p>
+              <p>Armand was never able to win the Last Call, his best finish being 2nd place in 2001. He deserved his name on this trophy, and now his memory endures with this honour.</p>
+            </div>
+          </div>
+          <div class="years"><strong style="color:var(--green-deep)">2025 —</strong> Heiko Claasen, Doug Woytkiw, Conroy Ip &amp; Keith Kendrick</div>
+        </div>
+
+        <div class="frame honor">
+          <span class="eyebrow">The Player Award</span>
+          <h3>The Bill Keeley Award</h3>
+          <hr class="rule left">
+          <div style="display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap;">
+            <!-- SWAP-PHOTO: Bill's portrait — currently Wix-hosted; move to SmugMug/repo -->
+            <img src="https://static.wixstatic.com/media/3b499f_e2cee48f77f7450fbe2d498d6d61414c~mv2.jpg/v1/crop/x_132,y_0,w_480,h_480/fill/w_200,h_200,al_c,q_80/bill_keeley.jpg" alt="Bill Keeley" style="width:130px; height:130px; object-fit:cover; border-radius:50%; border:2px solid var(--brass-line); flex:none;">
+            <div style="flex:1; min-width:260px;">
+              <p style="margin-bottom:12px;">Bill Keeley was a constant figure around the Derrick Golf &amp; Winter Club — one of the original founders of the Venerables Golf Tournament and Dinner, and one of the original organizers of the tournament the Last Call Invitational is based upon, the Lizard Open. Bill passed away in 2001, and was the award's first recipient.</p>
+              <p>The award is presented annually to the individual, as voted by his peers, who best represents the spirit of competition and contributes to the success and longevity of the Last Call and the Derrick Club.</p>
+            </div>
+          </div>
+          <div class="years"><strong style="color:var(--green-deep)">2025 —</strong> Craig McElroy</div>
+          <hr class="rule left">
+          <div class="eyebrow" style="margin-bottom:10px">Past recipients</div>
+          <div style="columns:2; column-gap:34px; font-size:15px; color:var(--ink); line-height:1.9;">
+            Bill Keeley<br>Armand Comeau<br>Lyn Peters<br>Lyle Abraham<br>Al Bucholz<br>Doug Comeau<br>Terry Wilkinson<br>Jim Goulet<br>John Coulter<br>Bruce Comeau<br>Elmer Goulet<br>Jack Parker Jr., Dave Getty &amp; Bob Ellis<br>Darrell Maxwell<br>Trevor Goplin<br>Mark Comeau<br>John Nielsen<br>Bill Burch<br>Bill Wensley<br>Bill Bondy<br>Jim Harris<br>Ernie Hilton<br>Brent Buchanan<br>Chris Comeau<br>Craig McElroy
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CHAMPIONS ===================== -->
+  <section class="view" id="champions">
+    <div class="section">
+      <div class="wrap">
+        <div class="lede">
+          <div class="eyebrow">Wall of Honor</div>
+          <h2>Past Champions &amp; Results</h2>
+          <p>Every Armand Comeau Cup champion since the first Last Call in 1987. Bill Keeley Award recipients are honoured on the <a href="#honors" data-nav style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Honors</a> page.</p>
+        </div>
+
+        <table class="champtable">
+          <thead>
+            <tr><th>Year</th><th>Armand Comeau Cup Champions</th><th>Final Results</th></tr>
+          </thead>
+          <tbody>
+            <tr class="addrow"><td class="yr" style="font-style:normal">2026</td><td colspan="2">Will it be you? <a href="#register" data-nav style="color:var(--green); border-bottom:1px dotted var(--brass)">Register for the 40th Annual</a></td></tr>
+            <tr><td class="yr">2025</td><td class="nm">Heiko Claasen, Doug Woytkiw, Conroy Ip, Keith Kendrick</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_dab377a21945402bbe810e23f14984ee.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2024</td><td class="nm">Craig Compton, Michael MacPhail, Matt Fay, Kevin Bureau</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_30d963116f8a41669a5f3123f7318b5d.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2023</td><td class="nm">Justin Solberg, Phil Petryk, Wayne Berney, David Wolanski</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_d6fbdfae920646be869ef0b1077812ea.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2022</td><td class="nm">Graeme Nelson, Austin Krysa, Terry Martens, Rob Quilley</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_1ae5ac198ae449999fdb49882dc1e197.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2021</td><td class="nm">Brandon Bruyer, Chris Comeau, Greg McPhee, Al Sibilo</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_940c5f22251c4d6792caf23af2cc7ed9.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2020</td><td class="nm">Chris Comeau, Mark Comeau, Stu Curley, Bill Burch, Rick Fluery</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">2019</td><td class="nm">Craig Compton, Elliot Buchanan, Allen Walter, Andre Ramsahoye</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_c97131d9b34c474899c86eb7121810b0.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2018</td><td class="nm">Tim Kantor, Tim Nelson, Marc Timberman, John Stephenson</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_56e7f519be5d4dcb900c77d3fa87c00c.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2017</td><td class="nm">Justin Solberg, Stephen Hutchinson, Keith Kendrick, Kevin Hill</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_9eb0c7fcf4164c8f9b942b1b86272302.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2016</td><td class="nm">Ryan Lauber, Elliott Buchanan, Jeff Ryks, Ken Lakhram</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_9a2e1d0912f9421ea667a01c77310a62.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2015</td><td class="nm">Blair Oko, John Barnes, Kelly Smith, John Bergsten</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_681929d68a474fd1bfbabd6370a456f6.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2014</td><td class="nm">Dave Reynolds, Dave Hingley, Jay Hambleton, Rob Quilley</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_d4d90c0bcba24e90af4381b355d27b4e.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2013</td><td class="nm">Jeff Hoffart, Jim Schubert, Mike Wolowyk, Andrew Smith</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_43c80f405813496fb60e9825e3869bbc.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2012</td><td class="nm">Dave Reynolds, Lyle Abraham, Bill Wensley, Bob Ellis</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_0ddeb8cb07424cfb81d70ea745e5811f.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2011</td><td class="nm">Stu Curley, Colin Mizier, Bruce Kirk, Dave Getty</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_da0ff39efcfd4d8bb0a95c9d1be0e19f.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2010</td><td class="nm">Gary Christenson, Brian Hill, Chris Comeau, Ron Holdinga</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_a06c4f86d1a742728446ffc8f5962154.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2009</td><td class="nm">Gord Taylor, Ron Holdinga, Joel Kautz, Phil Petryk</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_31281e84eb1d4e7c916080e66d272957.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2008</td><td class="nm">Craig McElroy, Daryl Klyn-Hesselink, Wayne McDaniel, Keith Kendrick</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_fa34442583de40bd834f391bb5afcc1c.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2007</td><td class="nm">Craig McElroy, Daryl Klyn-Hesselink, Bill Dart, Jai Persaud</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_b788df070054409983c190861e442e4b.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2006</td><td class="nm">Dean Sklarenko, Bruce Foster, Dan Roper, Art Eden</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_8ea73a9d82a542a994cbe1c8bb1fee0b.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2005</td><td class="nm">Wayne Kraft, Bill Dart, Ron Robbins, Hans Dys</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_019053c7110c4c268cbd3cd702483630.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2004</td><td class="nm">Ryan Lauber, Tom Buchanan, Bill Wensley, John Steffensen</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_74c257b8465f4028b96d282a979df027.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2003</td><td class="nm">Jim MacKelvie, Dan Roper, Darren Hamans, Blair Oko</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_1c3ab9eb2c0a4a3fb9886cbfcf08c49d.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2002</td><td class="nm">Vic Swain, Ken Moland, Jai Persaud, Bob Ellis</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_080048f4c8724ba58ad2032fadf44032.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2001</td><td class="nm">Wayne Kraft, Bill Burch, Jai Persaud, John McCutcheon</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_7f0acbda28a2443eb6f451b5fb8497f2.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">2000</td><td class="nm">Jim Goulet, Dave Fath, JT Moland, Ken Hoyano</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_9a2f566a11c44647865b1f3f0f43513c.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">1999</td><td class="nm">Chris Comeau, Mel Reimond, Ken Moland, Ken Lakhram</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_f1771896dc314277aedf3ab793c5605f.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">1998</td><td class="nm">Mel Reimond, Elmer Goulet, Jim Goulet, Dave Fath</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_eaa6d3d6a2654023879ead48322a7b4c.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">1997</td><td class="nm">Ken Moland, Lynn Peters, Colin Friess, Ken Lakhram</td><td><a href="https://www.lastcallinvitational.com/_files/ugd/3b499f_bb86ea32e4294bd783a819b63e276331.pdf" target="_blank" rel="noopener" style="color:var(--green); border-bottom:1px dotted var(--brass); text-decoration:none">Results</a></td></tr>
+            <tr><td class="yr">1996</td><td class="nm">Jamie Driscoll, Ron Mosher, Mike Sobolewski, Kevin McKee</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1995</td><td class="nm">Cal Lawton, Bill Keeley, Bob Ellis, Ron Guzak</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1994</td><td class="nm">Bruce Comeau, Bill Bondy, Dave Getty, Jack Parker Jr.</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1993</td><td class="nm">Gary Christenson, Elmer Goulet, Will Carry, Brad Barber</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1992</td><td class="nm">Bill Gajda, Tony Proche, Bob Ellis, Jak Meyer</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1991</td><td class="nm">Al Prokop, Chuck Dalton, George Dobrescu, Scott Mitchell</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1990</td><td class="nm">Doug Comeau, Joe Goodhart, Al Prokop, Chuck Haas</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1989</td><td class="nm">Craig Linsday, Rob Bucholz, Ron Oko, Blair Oko</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1988</td><td class="nm">Gord Stephenson, Craig Lindsay, Elmer Goulet, Jack Parker Jr.</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+            <tr><td class="yr">1987</td><td class="nm">Randy Hill, Bill Donaldson, Ray Buffel, Cal Lawton</td><td><span style="color:var(--ink-soft)">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY ===================== -->
+  <section class="view" id="gallery">
+    <div class="section">
+      <div class="wrap">
+        <div class="lede">
+          <div class="eyebrow">The Archive</div>
+          <h2>Gallery</h2>
+        </div>
+        <p class="gallery-note">Four decades of the Last Call, photographed. The full archive lives at Bruce Comeau Photography — a few favourites below, and the whole collection one tap away.</p>
+
+        <div class="ggrid">
+          <!-- SWAP: these three point at your Wix media — replace with SmugMug photos -->
+          <div class="tile"><img src="https://static.wixstatic.com/media/3b499f_d93ff69d7b994881ab43ad32148a16cc~mv2.jpg" alt="Last Call moment"></div>
+          <div class="tile"><img src="https://static.wixstatic.com/media/3b499f_4d10545be159404fbb85fcadc478652b~mv2.jpg" alt="Last Call moment"></div>
+          <div class="tile"><img src="https://static.wixstatic.com/media/3b499f_d93ff69d7b994881ab43ad32148a16cc~mv2.jpg" alt="Last Call moment"></div>
+        </div>
+
+        <!-- ============================================================
+             SMUGMUG EMBED GOES HERE.
+             In SmugMug: open a gallery → Share → Embed (or "Get a Link"),
+             copy the <iframe>/<script>, and paste it in place of this block.
+             You can stack several — one per year, or one master gallery.
+             ============================================================ -->
+        <div class="frame" style="margin-top:26px; text-align:center;">
+          <div class="cap">Bruce Comeau Photography</div>
+          <h3 style="font-size:28px; font-style:italic; margin:4px 0 8px">The Last Call Archive</h3>
+          <p style="color:var(--ink-soft); max-width:520px; margin:0 auto 18px;">Decades of tournament photography — every year, every winner, every story — lives in the full archive.</p>
+          <a class="btn green" href="https://www.brucecomeau.ca/Sports/n-Xt5dCG/Last-Call-Invitational" target="_blank" rel="noopener">Browse the full archive</a>
+        </div>
+
+        <!-- OPTIONAL SLIDESHOW EMBED: in SmugMug open the gallery → Share →
+             Embed → copy the <iframe> and paste it below this comment for an
+             in-page slideshow above the archive card. -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="view" id="contact">
+    <div class="section">
+      <div class="wrap">
+        <div class="lede" style="margin:0 auto; text-align:center">
+          <div class="eyebrow">Get in touch</div>
+          <h2>Contact</h2>
+        </div>
+        <div class="frame contact-card">
+          <div class="cap">Tournament Chairman</div>
+          <h3 style="font-size:30px; font-style:italic; margin:4px 0 6px">Ryan Lauber</h3>
+          <p>Questions about the 2026 Invitational, sponsorship, or the archive?</p>
+          <div class="email">ryan@ryanlauber.com</div>
+          <p style="margin-top:2px">780-717-4861</p>
+          <hr class="rule">
+          <a class="btn green" href="mailto:ryan@ryanlauber.com">Send a note</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="mark">The Last Call Invitational</div>
+  <div class="small">Since 1987 · 40th Annual · 2026</div>
+</footer>
+
+<script>
+  var VIEWS = ['home','register','honors','champions','gallery','contact'];
+  function route(){
+    var id = (location.hash || '#home').replace('#','');
+    if (VIEWS.indexOf(id) === -1) id = 'home';
+    VIEWS.forEach(function(v){
+      document.getElementById(v).classList.toggle('on', v === id);
+    });
+    document.querySelectorAll('nav.links a').forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+    document.getElementById('menu').classList.remove('open');
+    document.getElementById('burger').setAttribute('aria-expanded','false');
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  window.addEventListener('DOMContentLoaded', route);
+
+  var burger = document.getElementById('burger');
+  burger.addEventListener('click', function(){
+    var menu = document.getElementById('menu');
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>
+</body>
+</html>
