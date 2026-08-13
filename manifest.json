@@ -1,0 +1,13 @@
+{
+  "name": "The Last Call Invitational",
+  "short_name": "Last Call",
+  "description": "The Last Call Invitational — 40th Annual, since 1987.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#143526",
+  "theme_color": "#143526",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
