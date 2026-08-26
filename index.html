@@ -111,7 +111,7 @@
 
   /* ---------- hero ---------- */
   .hero{
-    position:relative; min-height:78vh; display:flex; align-items:center; justify-content:center;
+    position:relative; min-height:clamp(380px, 58vh, 620px); display:flex; align-items:center; justify-content:center;
     text-align:center; color:var(--linen); overflow:hidden; background:var(--green-deep);
   }
   .hero .bg{position:absolute; inset:0; background-size:cover; background-position:center;
@@ -203,34 +203,45 @@
   nav.footnav{display:none;}   /* FR-290 — phones only */
   footer.site .small{font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-top:8px;}
 
-  /* ---------- ⭐ FR-291 — the 1987 invitation, first fiddle ---------- */
+  /* ---------- ⭐⭐ FR-291c — the 2026 invitation, top of the page ---------- */
+  /* The banner IS the registration. Printed on a blank patch of the real 1987
+     paper, it opens the site; the three original pages follow beneath it. */
+  .inv26{background:url('invite-paper.jpg') center/cover no-repeat;
+    border-bottom:1px solid var(--brass-line);}
+  .inv26 .wrap{max-width:880px; padding-top:34px; padding-bottom:32px; text-align:center;}
+  .inv26 .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:46px; line-height:1.1;}
+  .inv26 .yr{font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--brass);
+    font-weight:600; margin:8px 0 18px;}
+  .inv26 .rows{display:flex; flex-wrap:wrap; justify-content:center; gap:6px 32px;
+    font-size:17px; line-height:1.6; color:var(--ink); margin-bottom:16px;}
+  .inv26 .rows b{color:var(--green-deep); font-weight:600;}
+  .inv26 .invite{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px;
+    line-height:1.42; color:var(--green-deep); max-width:620px; margin:0 auto 22px;
+    padding-top:18px; border-top:1px solid var(--brass-line);}
+  .inv26 .invite b{font-style:normal; font-weight:600;}
+  .inv26 .origin{font-size:15.5px; line-height:1.62; color:var(--ink-soft);
+    max-width:600px; margin:-6px auto 24px;}
+  .inv26 .origin b{color:var(--green-deep); font-weight:600;}
+  .inv26 .origin .ol{display:block; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin-bottom:7px;}
+  .inv26 .btn{font-size:16px; padding:16px 40px;}
+  .inv26 .snooze{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:20px; margin-top:16px;}
+
+  /* ---------- the three original pages, bigger ---------- */
   .inv{background:var(--card); border-bottom:1px solid var(--hair);}
-  .invgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:28px; align-items:stretch;}
+  .invgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:26px; align-items:stretch;}
   .invcard{background:#fff; border:1px solid var(--hair); border-radius:4px; overflow:hidden; margin:0;
     box-shadow:0 10px 30px rgba(34,33,28,.08); display:flex; flex-direction:column;}
   .invcard img{width:100%; display:block; background:#efece3;}
-  .invcard .tr{padding:14px 16px 17px;}
-  .invcard .pl{font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass);
-    font-weight:600; margin-bottom:8px;}
-  .invcard .tr p{font-size:13.5px; line-height:1.62; color:var(--ink-soft); margin:0 0 8px;}
+  .invcard .tr{padding:16px 18px 19px;}
+  .invcard .pl{font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass);
+    font-weight:600; margin-bottom:9px;}
+  .invcard .tr p{font-size:15.5px; line-height:1.68; color:var(--ink-soft); margin:0 0 9px;}
   .invcard .tr p:last-child{margin-bottom:0;}
-  .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:20px; line-height:1.3;}
-  .invcard .rows{font-size:13px; line-height:1.8; color:var(--ink-soft);}
+  .invcard .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:23px; line-height:1.3;}
+  .invcard .rows{font-size:15px; line-height:1.85; color:var(--ink-soft);}
   .invcard .rows b{color:var(--green-deep); font-weight:600;}
-  /* the 2026 page — printed on a blank patch of the REAL 1987 paper */
-  .invcard.p26{background:url('invite-paper.jpg') center/cover no-repeat; border-color:var(--brass-line);}
-  .p26 .body{padding:26px 20px 22px; display:flex; flex-direction:column; flex:1;
-    justify-content:center; text-align:center;}
-  .p26 .hand{font-size:27px; margin-bottom:4px;}
-  .p26 .yr{font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--brass); font-weight:600; margin-bottom:16px;}
-  .p26 .rows{text-align:left; margin:0 auto 18px; display:inline-block;}
-  .p26 .then{font-family:'Cormorant Garamond',serif; font-size:16.5px; line-height:1.45;
-    color:var(--green-deep); font-style:italic; margin:0 0 16px; padding:14px 2px 0;
-    border-top:1px solid var(--brass-line);}
-  .p26 .then b{font-weight:600; font-style:normal;}
-  .p26 .btn{width:100%; box-sizing:border-box;}
-  .p26 .snooze{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:16px; margin-top:12px;}
-  .invnote{text-align:center; font-size:12px; color:var(--ink-soft); letter-spacing:.06em; margin-top:16px;}
+  .invnote{text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin-top:18px;}
   @media (max-width:1040px){ .invgrid{grid-template-columns:1fr 1fr;} }
 
   /* ---------- responsive ---------- */
@@ -266,6 +277,10 @@
     nav.footnav a{color:rgba(246,242,233,.92);}
     .cardgrid{grid-template-columns:1fr;}
     .invgrid{grid-template-columns:1fr; gap:14px;}
+    .inv26 .hand{font-size:34px;}
+    .inv26 .rows{display:block; font-size:16px;}
+    .inv26 .invite{font-size:19px;}
+    .inv26 .btn{width:100%; box-sizing:border-box;}
     .about{grid-template-columns:1fr; gap:26px;}
     .ggrid{grid-template-columns:1fr 1fr;}
     .section{padding:48px 0;}
@@ -306,34 +321,38 @@
 
   <!-- ===================== HOME ===================== -->
   <section class="view" id="home">
-    <div class="hero">
-      <div class="bg"></div>
-      <div class="scrim"></div>
-      <div class="inner">
-        <div class="eyebrow">Est. 1987 · 40th Annual</div>
-        <h1>The Last&nbsp;Call Invitational</h1>
-        <div class="kicker">Four decades of friends, fairways, and the Armand Comeau Cup.</div>
-        <div class="btnrow">
-          <a href="#register" class="btn gold" data-nav>Register for 2026</a>
-          <a href="#champions" class="btn ghost" data-nav>Meet the champions</a>
+    <!-- ⭐⭐⭐ FR-291c (s304) — THE 2026 INVITATION. Bruce circled this card in
+         red: "this registration should be top of the screen - champion photo
+         down." So the fourth page is no longer a card in a row — it is the top
+         of the site, printed on a blank patch of the REAL 1987 paper, carrying
+         the details, the invitation itself, and the button.
+         ⛔ D1 truth (event 196): Sept 26 2026, Derrick Golf & Winter Club,
+         invitation only. No fee or tee time is claimed — none is recorded. -->
+    <div class="inv26">
+      <div class="wrap">
+        <div class="hand">Last Call Invitational &rsquo;26</div>
+        <div class="yr">The 40th Annual &middot; Est. 1987</div>
+        <div class="rows">
+          <div><b>Date:</b> Saturday, September 26, 2026</div>
+          <div><b>Place:</b> Derrick Golf &amp; Winter Club</div>
+          <div><b>Entries:</b> online, by invitation</div>
         </div>
+        <p class="invite"><b>Craig Lindsay, Scott Lindsay</b> and <b>Bruce Comeau</b> &mdash; with Tournament Chairman <b>Ryan Lauber</b> &mdash; invite you to play.</p>
+        <p class="origin"><span class="ol">The Founders</span>Their idea, hatched in the Spike Bar of the Derrick Club after a few late evenings of curling, Monday Night Football and golf. The first year of the Last Call: <b>$35</b> to play.</p>
+        <a class="btn gold" href="#register" data-nav>Register for the 40th</a>
+        <div class="snooze">You snooze you lose.</div>
       </div>
     </div>
 
-    <!-- ⭐⭐ FR-291 (s304) — THE ORIGINAL INVITATION, FIRST FIDDLE.
-         Bruce: "should be first fiddle in the 40th year ... maybe make the
-         registration a part of that montage ... with the old invitation!!!"
-         Three real pages (crops of the original scan) + a fourth page for
-         2026 printed on the same paper, carrying this year's registration.
-         ⛔ The 2026 details are D1 truth (event 196): Sept 26 2026, Derrick
-         Golf & Winter Club, invitation only. No fee or tee time is claimed —
-         none is recorded. The transcriptions are verbatim, typo and all. -->
+    <!-- ⭐⭐ FR-291 — THE ORIGINAL INVITATION, the three real pages, verbatim.
+         Transcribed in plain type beside each scan: faint red script on aged
+         onion skin is exactly what the seniors could not read. -->
     <div class="section inv">
       <div class="wrap">
         <div class="lede" style="margin:0 auto; text-align:center">
           <div class="eyebrow">1987 &middot; 2026 &mdash; Forty Years</div>
-          <h2 style="font-size:38px; font-style:italic">The Original Invitation</h2>
-          <p>Three pages of red script on onion skin, put out for the very first Last Call &mdash; twenty-eight spots, claimed in person, in the Spike Bar, on one night only. Here it is, word for word. And here is the fourth page: <strong style="color:var(--green-deep)">2026</strong>.</p>
+          <h2 style="font-size:38px; font-style:italic">Where It Started</h2>
+          <p>Three pages of red script on onion skin, put out for the very first Last Call &mdash; twenty-eight spots, claimed in person, in the Spike Bar, on one night only. Here it is, word for word.</p>
         </div>
 
         <div class="invgrid">
@@ -374,24 +393,9 @@
                 <b>Fee:</b> $35.00 (non refundable)<br>
                 Includes Power Cart
               </div>
-              <p style="margin-top:9px">First 28 entries accepted on Sept 14 between 7:00 p.m. and 9:00 p.m. in the Spike Bar. No entries will be accepted prior to Sept 14. <em>You snooze you lose.</em></p>
+              <p style="margin-top:10px">First 28 entries accepted on Sept 14 between 7:00 p.m. and 9:00 p.m. in the Spike Bar. No entries will be accepted prior to Sept 14. <em>You snooze you lose.</em></p>
               <p style="font-style:italic">P.S. Tell your whip you&rsquo;ll see her Sunday</p>
             </figcaption>
-          </figure>
-
-          <figure class="invcard p26">
-            <div class="body">
-              <div class="hand">Last Call Invitational &rsquo;26</div>
-              <div class="yr">The 40th Annual</div>
-              <div class="rows">
-                <b>Date:</b> Saturday, September 26, 2026<br>
-                <b>Place:</b> Derrick Golf &amp; Winter Club<br>
-                <b>Entries:</b> online, by invitation
-              </div>
-              <p class="then"><b>Craig Lindsay, Scott Lindsay</b> and <b>Bruce Comeau</b> &mdash; with Tournament Chairman <b>Ryan Lauber</b> &mdash; invite you to play.</p>
-              <a class="btn gold" href="#register" data-nav>Register for the 40th</a>
-              <div class="snooze">You snooze you lose.</div>
-            </div>
           </figure>
         </div>
 
@@ -399,21 +403,23 @@
       </div>
     </div>
 
-    <!-- FOUNDERS SPLASH (added s263) -->
-    <div class="section tight" style="background:var(--card); border-bottom:1px solid var(--hair);">
-      <div class="wrap" style="display:flex; gap:30px; align-items:center; justify-content:center; flex-wrap:wrap; max-width:900px;">
-        <div style="max-width:640px; margin:0 auto; text-align:center;">
-          <div class="eyebrow">The Founders</div>
-          <h3 class="serif" style="font-size:30px; font-style:italic; margin:8px 0 10px;">Craig Lindsay, Scott Lindsay &amp; Bruce Comeau</h3>
-          <p style="color:var(--ink-soft);">Founders of the Last Call Invitational — an idea founded in the Spike Bar of the Derrick Club, after a few late evenings of curling, Monday Night Football and golf. The first year of the Last Call: <strong style="color:var(--green-deep)">$35</strong> to play.</p>
+    <div class="hero">
+      <div class="bg"></div>
+      <div class="scrim"></div>
+      <div class="inner">
+        <div class="eyebrow">Est. 1987 · 40th Annual</div>
+        <h1>The Last&nbsp;Call Invitational</h1>
+        <div class="kicker">Four decades of friends, fairways, and the Armand Comeau Cup.</div>
+        <div class="btnrow">
+          <a href="#register" class="btn gold" data-nav>Register for 2026</a>
+          <a href="#champions" class="btn ghost" data-nav>Meet the champions</a>
         </div>
-        <!-- FR-291: the invitation scan moved UP and became the montage above
-             (three cropped pages + the 2026 page). Keeping a second copy here
-             would duplicate it AND re-download the 6.2MB original. The scan
-             stays in the repo; this block is now the backstory beneath it. -->
       </div>
     </div>
 
+    <!-- FR-291d — the FOUNDERS SPLASH that stood here is now part of the
+         invitation banner at the top of the page (his ask: "this needs to be
+         prominent too - maybe a part of the invite"). Same words, one place. -->
     <div class="section tight strip">
       <div class="wrap">
         <div class="eyebrow" style="text-align:center">Our 2025 Winners</div>
