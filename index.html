@@ -206,26 +206,45 @@
   /* ---------- ⭐⭐ FR-291c — the 2026 invitation, top of the page ---------- */
   /* The banner IS the registration. Printed on a blank patch of the real 1987
      paper, it opens the site; the three original pages follow beneath it. */
-  .inv26{background:url('invite-paper.jpg') center/cover no-repeat;
+  /* FR-291e — NO PAPER BEHIND THE TEXT. His call ("don't worry about matching
+     the paper backround"), and the right one: texture under type is what makes
+     an old eye work. Clean linen, brass rules, ink at full contrast. */
+  .inv26{background:var(--linen); border-top:3px solid var(--brass);
     border-bottom:1px solid var(--brass-line);}
-  .inv26 .wrap{max-width:880px; padding-top:34px; padding-bottom:32px; text-align:center;}
-  .inv26 .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:46px; line-height:1.1;}
-  .inv26 .yr{font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--brass);
-    font-weight:600; margin:8px 0 18px;}
-  .inv26 .rows{display:flex; flex-wrap:wrap; justify-content:center; gap:6px 32px;
-    font-size:17px; line-height:1.6; color:var(--ink); margin-bottom:16px;}
+  .inv26 .wrap{max-width:880px; padding-top:36px; padding-bottom:34px; text-align:center;}
+  .inv26 .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:50px; line-height:1.1;}
+  .inv26 .yr{font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--brass);
+    font-weight:600; margin:9px 0 20px;}
+  .inv26 .rows{display:flex; flex-wrap:wrap; justify-content:center; gap:7px 34px;
+    font-size:19px; line-height:1.6; color:var(--ink); margin-bottom:18px;}
   .inv26 .rows b{color:var(--green-deep); font-weight:600;}
-  .inv26 .invite{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:21px;
-    line-height:1.42; color:var(--green-deep); max-width:620px; margin:0 auto 22px;
-    padding-top:18px; border-top:1px solid var(--brass-line);}
+  .inv26 .fnd{max-width:660px; margin:0 auto 26px; padding-top:20px;
+    border-top:1px solid var(--brass-line);}
+  .inv26 .ol{font-size:12px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--brass); font-weight:600; margin-bottom:10px;}
+  .inv26 .invite{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px;
+    line-height:1.42; color:var(--green-deep); margin:0 auto 12px;}
   .inv26 .invite b{font-style:normal; font-weight:600;}
-  .inv26 .origin{font-size:15.5px; line-height:1.62; color:var(--ink-soft);
-    max-width:600px; margin:-6px auto 24px;}
+  .inv26 .origin{font-size:17px; line-height:1.62; color:var(--ink-soft);
+    max-width:620px; margin:0 auto;}
   .inv26 .origin b{color:var(--green-deep); font-weight:600;}
-  .inv26 .origin .ol{display:block; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
-    color:var(--brass); font-weight:600; margin-bottom:7px;}
-  .inv26 .btn{font-size:16px; padding:16px 40px;}
-  .inv26 .snooze{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:20px; margin-top:16px;}
+  .inv26 .btn{font-size:17px; padding:17px 44px;}
+  .inv26 .snooze{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:22px; margin-top:18px;}
+  .inv26 .chair{font-size:13.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);
+    margin-top:12px;}
+  .inv26 .chair b{color:var(--green-deep); font-weight:600; letter-spacing:.1em;}
+
+  /* ---------- ⭐ FR-291f — the flamingos, full bleed ---------- */
+  /* The hinge between 2026 and 1987. Full width on purpose: it is the only
+     photograph on the page that is FROM the night, and it earns the room. */
+  .flam{margin:0; background:var(--green-deep); position:relative; display:block;}
+  .flam img{display:block; width:100%; height:clamp(210px, 27vw, 420px);
+    object-fit:cover; object-position:center 58%;}
+  .flam figcaption{background:var(--green-deep); color:rgba(246,242,233,.82);
+    text-align:center; font-size:14px; letter-spacing:.1em; padding:13px 20px 15px;}
+  .flam figcaption b{color:var(--brass-soft); font-weight:600;}
+  .flam .credit{display:block; margin-top:5px; font-size:12.5px; letter-spacing:.12em;
+    color:rgba(246,242,233,.6);}
 
   /* ---------- the three original pages, bigger ---------- */
   .inv{background:var(--card); border-bottom:1px solid var(--hair);}
@@ -234,14 +253,14 @@
     box-shadow:0 10px 30px rgba(34,33,28,.08); display:flex; flex-direction:column;}
   .invcard img{width:100%; display:block; background:#efece3;}
   .invcard .tr{padding:16px 18px 19px;}
-  .invcard .pl{font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass);
+  .invcard .pl{font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass);
     font-weight:600; margin-bottom:9px;}
-  .invcard .tr p{font-size:15.5px; line-height:1.68; color:var(--ink-soft); margin:0 0 9px;}
+  .invcard .tr p{font-size:17px; line-height:1.7; color:var(--ink-soft); margin:0 0 9px;}
   .invcard .tr p:last-child{margin-bottom:0;}
-  .invcard .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:23px; line-height:1.3;}
-  .invcard .rows{font-size:15px; line-height:1.85; color:var(--ink-soft);}
+  .invcard .hand{font-family:'Yellowtail',cursive; color:var(--ink-red); font-size:25px; line-height:1.3;}
+  .invcard .rows{font-size:16.5px; line-height:1.85; color:var(--ink-soft);}
   .invcard .rows b{color:var(--green-deep); font-weight:600;}
-  .invnote{text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin-top:18px;}
+  .invnote{text-align:center; font-size:14.5px; color:var(--ink-soft); letter-spacing:.05em; margin-top:18px;}
   @media (max-width:1040px){ .invgrid{grid-template-columns:1fr 1fr;} }
 
   /* ---------- responsive ---------- */
@@ -337,12 +356,26 @@
           <div><b>Place:</b> Derrick Golf &amp; Winter Club</div>
           <div><b>Entries:</b> online, by invitation</div>
         </div>
-        <p class="invite"><b>Craig Lindsay, Scott Lindsay</b> and <b>Bruce Comeau</b> &mdash; with Tournament Chairman <b>Ryan Lauber</b> &mdash; invite you to play.</p>
-        <p class="origin"><span class="ol">The Founders</span>Their idea, hatched in the Spike Bar of the Derrick Club after a few late evenings of curling, Monday Night Football and golf. The first year of the Last Call: <b>$35</b> to play.</p>
+        <div class="fnd">
+          <div class="ol">The Founders</div>
+          <p class="invite"><b>Craig Lindsay, Scott Lindsay</b> and <b>Bruce Comeau</b> invite you to play.</p>
+          <p class="origin">Their idea, hatched in the Spike Bar of the Derrick Club after a few late evenings of curling, Monday Night Football and golf. The first year of the Last Call: <b>$35</b> to play.</p>
+        </div>
         <a class="btn gold" href="#register" data-nav>Register for the 40th</a>
         <div class="snooze">You snooze you lose.</div>
+        <div class="chair">Tournament Chairman &middot; <b>Ryan Lauber</b></div>
       </div>
     </div>
+
+    <!-- ⭐ FR-291f — THE FLAMINGOS. His question, "where are the flamingos?",
+         and the right one: they were kept with the invitation and they are the
+         only picture here that is FROM 1987. Full bleed, between this year's
+         invitation and the original one. -->
+    <figure class="flam">
+      <a href="invite-1987-flamingos.jpg" target="_blank" rel="noopener"><img src="invite-1987-flamingos.jpg" alt="Pink flamingos staked around the pond at dusk, 1987" loading="lazy"></a>
+      <figcaption>Kept with the invitation &mdash; <b>the flamingos</b>, October 1987.
+        <span class="credit">Photograph by <b>Bill Gajda</b> &mdash; with thanks.</span></figcaption>
+    </figure>
 
     <!-- ⭐⭐ FR-291 — THE ORIGINAL INVITATION, the three real pages, verbatim.
          Transcribed in plain type beside each scan: faint red script on aged
