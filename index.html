@@ -15,6 +15,12 @@
      Pards registration page (register.html) so the site → register
      handoff is seamless.
 
+     FR-290 (Aug 26 2026): the phone menu no longer collapses behind a
+     three-line hamburger button.
+     Bruce, from the field: the tiny top-right menu "is not a hit with the
+     seniors — it's not too obvious." Every item is now a visible labelled
+     button. Desktop layout is unchanged.
+
      CONTENT IS REAL — pulled from the live Wix site Aug 12 2026:
      champions 1987–2025 (+ results PDF links), both award stories,
      Keeley recipients, contact (Ryan Lauber). Remaining SWAPs are
@@ -75,8 +81,6 @@
     background:var(--brass); color:var(--green-deep); font-weight:600; margin-left:6px;
   }
   nav.links a.cta:hover{background:var(--brass-soft); color:var(--green-deep);}
-  .burger{display:none; background:none; border:1px solid rgba(246,242,233,.3); color:var(--linen);
-    width:40px; height:38px; border-radius:4px; cursor:pointer; font-size:18px;}
 
   /* ---------- section machinery ---------- */
   .view{display:none;}
@@ -195,17 +199,40 @@
   /* ---------- footer ---------- */
   footer.site{background:var(--green-deep); color:rgba(246,242,233,.72); text-align:center; padding:34px 22px;}
   footer.site .mark{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--brass-soft);}
+  nav.footnav{display:none;}   /* FR-290 — phones only */
   footer.site .small{font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-top:8px;}
 
   /* ---------- responsive ---------- */
   @media (max-width:820px){
-    nav.links{position:absolute; top:66px; left:0; right:0; flex-direction:column; align-items:stretch;
-      gap:0; background:var(--green-deep); padding:8px 14px 16px; border-bottom:1px solid rgba(168,134,60,.35);
-      display:none;}
-    nav.links.open{display:flex;}
-    nav.links a{padding:12px 8px;}
-    nav.links a.cta{margin:8px 0 0;}
-    .burger{display:block;}
+    /* ⭐ FR-290 — THE MENU IS THE MENU. No burger, no collapse: every
+       destination is a labelled button on screen, three across, sized for a
+       reader who is not hunting for a three-line glyph in a corner.
+       ⛔ The header goes STATIC here on purpose: a full visible menu that is
+       also sticky would hold a third of a phone screen forever. It scrolls
+       away, and the same menu is repeated in the footer — so it is in reach
+       at the top of every view (the router scrolls there on each tap) and
+       again at the bottom of a long champions table. */
+    header{position:static;}
+    /* ⛔ vertical padding ONLY — the shorthand here would wipe .wrap's 22px
+       side padding and run the pills off both edges of the phone. */
+    .navbar{flex-direction:column; align-items:stretch; height:auto; gap:8px;
+      padding-top:9px; padding-bottom:11px;}
+    .brand{justify-content:center; gap:8px;}
+    nav.links{position:static; flex-direction:row; flex-wrap:wrap; justify-content:center;
+      gap:6px; background:none; padding:0; border:0;}
+    nav.links a{
+      flex:1 1 calc(33.333% - 4px); min-width:0; text-align:center; min-height:46px;
+      display:flex; align-items:center; justify-content:center; padding:6px 4px;
+      font-size:14px; letter-spacing:.03em; color:var(--linen);
+      border:1px solid rgba(246,242,233,.34); border-radius:4px;
+    }
+    nav.links a.active{
+      color:var(--green-deep); background:var(--brass-soft); border-color:var(--brass-soft); font-weight:600;
+    }
+    nav.links a.cta{flex:1 1 100%; margin:2px 0 0; font-weight:600; font-size:15px; letter-spacing:.08em;
+      border-color:var(--brass);}
+    nav.footnav{display:flex; margin:18px auto 0; max-width:420px;}
+    nav.footnav a{color:rgba(246,242,233,.92);}
     .cardgrid{grid-template-columns:1fr;}
     .about{grid-template-columns:1fr; gap:26px;}
     .ggrid{grid-template-columns:1fr 1fr;}
@@ -218,7 +245,7 @@
     .view.on{animation:none;}
     .ggrid .tile:hover img{transform:none;}
   }
-  a.btn:focus-visible, nav.links a:focus-visible, .burger:focus-visible{
+  a.btn:focus-visible, nav.links a:focus-visible{
     outline:2px solid var(--brass-soft); outline-offset:2px;
   }
 </style>
@@ -231,7 +258,6 @@
       <span class="mark">Last Call Invitational</span>
       <span class="est">Est. 1987</span>
     </a>
-    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
     <nav class="links" id="menu">
       <a href="#home" data-nav>Home</a>
       <a href="#honors" data-nav>Honors</a>
@@ -555,7 +581,16 @@
 </main>
 
 <footer class="site">
-  <div class="mark">The Last Call Invitational</div>
+  <nav class="links footnav" aria-label="Menu">
+    <a href="#home" data-nav>Home</a>
+    <a href="#honors" data-nav>Honors</a>
+    <a href="#champions" data-nav>Champions</a>
+    <a href="#gameday" data-nav>Game Day</a>
+    <a href="#gallery" data-nav>Gallery</a>
+    <a href="#contact" data-nav>Contact</a>
+    <a href="#register" data-nav class="cta">Register 2026</a>
+  </nav>
+  <div class="mark" style="margin-top:22px">The Last Call Invitational</div>
   <div class="small">Since 1987 · 40th Annual · 2026</div>
 </footer>
 
@@ -570,19 +605,11 @@
     document.querySelectorAll('nav.links a').forEach(function(a){
       a.classList.toggle('active', a.getAttribute('href') === '#' + id);
     });
-    document.getElementById('menu').classList.remove('open');
-    document.getElementById('burger').setAttribute('aria-expanded','false');
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
   window.addEventListener('DOMContentLoaded', route);
 
-  var burger = document.getElementById('burger');
-  burger.addEventListener('click', function(){
-    var menu = document.getElementById('menu');
-    var open = menu.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
 </script>
 </body>
 </html>
