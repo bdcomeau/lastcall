@@ -78,6 +78,8 @@
   }
   nav.links a:hover{color:var(--linen);}
   nav.links a.active{color:var(--brass-soft);}
+  /* FR-292 — hidden on every view but home (the router sets .nothome) */
+  body.nothome nav.links a.cta{display:none;}
   nav.links a.cta{
     background:var(--brass); color:var(--green-deep); font-weight:600; margin-left:6px;
   }
@@ -237,14 +239,12 @@
   /* ---------- ⭐ FR-291f — the flamingos, full bleed ---------- */
   /* The hinge between 2026 and 1987. Full width on purpose: it is the only
      photograph on the page that is FROM the night, and it earns the room. */
+  .flamhd{background:var(--linen); text-align:center; padding:24px 20px 18px;
+    font-size:13px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--brass); font-weight:600;}
   .flam{margin:0; background:var(--green-deep); position:relative; display:block;}
   .flam img{display:block; width:100%; height:clamp(210px, 27vw, 420px);
     object-fit:cover; object-position:center 58%;}
-  .flam figcaption{background:var(--green-deep); color:rgba(246,242,233,.82);
-    text-align:center; font-size:14px; letter-spacing:.1em; padding:13px 20px 15px;}
-  .flam figcaption b{color:var(--brass-soft); font-weight:600;}
-  .flam .credit{display:block; margin-top:5px; font-size:12.5px; letter-spacing:.12em;
-    color:rgba(246,242,233,.6);}
 
   /* ---------- the three original pages, bigger ---------- */
   .inv{background:var(--card); border-bottom:1px solid var(--hair);}
@@ -344,10 +344,9 @@
          and the right one: they were kept with the invitation and they are the
          only picture here that is FROM 1987. Full bleed, between this year's
          invitation and the original one. -->
+    <div class="flamhd">Flamingos Courtesy of Bill Gajda</div>
     <figure class="flam">
       <a href="invite-1987-flamingos.jpg" target="_blank" rel="noopener"><img src="invite-1987-flamingos.jpg" alt="Pink flamingos staked around the pond at dusk, 1987" loading="lazy"></a>
-      <figcaption>Kept with the invitation &mdash; <b>the flamingos</b>, October 1987.
-        <span class="credit">Photograph &mdash; &copy; <b>Bill Gajda</b></span></figcaption>
     </figure>
 
     <!-- ⭐⭐ FR-291 — THE ORIGINAL INVITATION, the three real pages, verbatim.
@@ -480,7 +479,6 @@
           <p class="big">Since 1987, the Last Call has closed the season the same way — one field, one long day, and a trophy worth arguing over all winter.</p>
           <p>Born from the Lizard Open at the Derrick Golf &amp; Winter Club, the Last Call has closed the season every year since 1987. Teams play for the Armand Comeau Cup; the Bill Keeley Award honours the player who best carries the spirit of the thing; everyone plays for the story they'll tell at the nineteenth hole.</p>
           <p>The 2026 Invitational — the 40th — carries all of it forward. If you've been here before, you know. If you haven't, consider this your invitation.</p>
-          <a href="#register" class="btn ghost-green" data-nav style="margin-top:6px">Register for 2026</a>
         </div>
         <div class="figure">
           <img src="Site%20Photos/BDCOMEAU%20-%208MB%20Gallery%20-%2020250927-204607.JPG" alt="The 2025 champions">
@@ -750,6 +748,9 @@
     document.querySelectorAll('nav.links a').forEach(function(a){
       a.classList.toggle('active', a.getAttribute('href') === '#' + id);
     });
+    /* FR-292 — the REGISTER chip lives on the home page only. Everywhere else
+       it is hidden, so the way to the invitation is through the front page. */
+    document.body.classList.toggle('nothome', id !== 'home');
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', route);
