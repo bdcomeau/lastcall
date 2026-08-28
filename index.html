@@ -380,7 +380,19 @@
     .section{padding:48px 0;}
     .lede h2{font-size:32px;}
   }
-  @media (max-width:520px){ .ggrid{grid-template-columns:1fr;} }
+  @media (max-width:520px){
+    /* ⭐⭐ THE PILL UNDER THE CHAIRMAN, ON A PHONE TOO (s308). His ask, measured:
+       with the founders' origin sentence removed the pill clears the fold on a
+       392x800 and a 390x700 iPhone, but an iPhone SE (375x667) was still 61px short.
+       This trims only the GAPS a phone does not need — no words are removed by this
+       rule — and all three sizes then fit. ⛔ Nothing here touches the iPad or desktop. */
+    .inv26 .wrap{padding-top:16px; padding-bottom:20px;}
+    .inv26 .hand{font-size:30px;}
+    .inv26 .yr{margin:7px 0 12px;}
+    .inv26 .rows{margin-bottom:12px;}
+    .inv26 .fnd{margin:0 auto 14px; padding-top:14px;}
+    .inv26 .snooze{margin-top:10px;}
+    .inv26 .chair{margin-top:8px;} .ggrid{grid-template-columns:1fr;} }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     .view.on{animation:none;}
@@ -415,13 +427,16 @@
 
   <!-- ===================== HOME ===================== -->
   <section class="view" id="home">
-    <!-- ⭐ FR-291f — THE FLAMINGOS. His question, "where are the flamingos?",
-         and the right one: they were kept with the invitation and they are the
-         only picture here that is FROM 1987. Full bleed, between this year's
-         invitation and the original one. -->
-    <div class="flamhd">
-      <h1 class="mast">40th Annual Last Call Invitational</h1>
-    </div>
+    <!-- MASTHEAD REMOVED (s308) — HIS CALL, circled on an iPad: "It's very redundant."
+         And it was: the nav bar already reads "Last Call Invitational · EST. 1987", and the
+         card immediately below reads "Last Call Invitational '26" and "THE 40TH ANNUAL ·
+         EST. 1987". Three statements of the same thing above the fold, costing ~220px on a
+         phone before anyone reached the register pill.
+         The stale FR-291f comment went with it — the figure it described was removed earlier
+         this session ("No flamingos"), leaving a comment that described nothing.
+         The .flamhd / .mast CSS is LEFT IN PLACE: dead but harmless, and deleting styles for
+         a block that may come back is a separate decision.
+         The page keeps its heading: the hero section's own top-level title. -->
 
     <!-- ⭐⭐⭐ REGISTER FIRST (s308) — HIS SECOND ASK, AND THE MEASUREMENT BEHIND IT.
          "Remove the old invite photos... Old people can't see where to register."
@@ -444,14 +459,13 @@
           <div><b>Place:</b> Derrick Golf &amp; Winter Club</div>
           <div><b>Entries:</b> online, by invitation</div>
         </div>
-        <a class="btn gold" href="#register" data-nav>Register for the 40th</a>
         <div class="fnd">
           <div class="ol">The Founders</div>
           <p class="invite"><b>Bruce Comeau, Craig Lindsay</b> and <b>Scott Lindsay</b> invite you to play.</p>
-          <p class="origin">Their idea, hatched in the Spike Bar of the Derrick Club after a few late evenings of curling, Monday Night Football and golf. The first year of the Last Call: <b>$35</b> to play.</p>
-        </div>
+          </div>
         <div class="snooze">You snooze you lose.</div>
         <div class="chair">Tournament Chairman &middot; <b>Ryan Lauber</b></div>
+        <a class="btn gold" href="#register" data-nav>Register for the 40th</a>
       </div>
     </div>
     
