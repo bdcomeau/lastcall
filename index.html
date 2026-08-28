@@ -285,6 +285,18 @@
   .invcard{background:#fff; border:1px solid var(--hair); border-radius:4px; overflow:hidden; margin:0;
     box-shadow:0 10px 30px rgba(34,33,28,.08); display:flex; flex-direction:column;}
   .invcard img{width:100%; display:block; background:#efece3;}
+    /* ⭐⭐ INVITE THUMBNAIL (s308) — HIS CALL: "maybe just a link to the invite with
+       a thumbnail". The three 1987 scans were pulled this session because full-bleed
+       they pushed the register button 3,941px down a phone. They belong on the page —
+       they are the only artefact from 1987 — but they belong at the size of a stamp,
+       floated into the transcription so the text wraps around them and the section
+       costs almost no scroll. Tap opens the real photograph, exactly as before.
+       ⛔ FIXED px, not a %: a percentage thumb grows with the phone and re-creates
+       the very problem this is here to solve. */
+    .invcard .invthumb{float:right; width:92px; margin:0 0 10px 14px; border:1px solid var(--hair);
+      border-radius:3px; overflow:hidden; box-shadow:0 3px 10px rgba(34,33,28,.14); display:block;}
+    .invcard .invthumb img{width:100%; height:auto; display:block; background:#efece3;}
+    .invcard .tr::after{content:''; display:block; clear:both;}
   .invcard .tr{padding:16px 18px 19px;}
   .invcard .pl{font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--brass);
     font-weight:600; margin-bottom:9px;}
@@ -458,6 +470,7 @@
         <div class="invgrid">
           <figure class="invcard">
             <figcaption class="tr">
+              <a class="invthumb" href="invite-1987-cover.jpg" target="_blank" rel="noopener"><img src="invite-1987-cover.jpg" alt="The cover of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page One &middot; The Cover</div>
               <p class="hand">Last Call Invitational &rsquo;87</p>
               <p>&ldquo;Because you are ugly and you smell most of the time, you have an opportunity to play in this prestigius event.&rdquo;</p>
@@ -466,6 +479,7 @@
 
           <figure class="invcard">
             <figcaption class="tr">
+              <a class="invthumb" href="invite-1987-format.jpg" target="_blank" rel="noopener"><img src="invite-1987-format.jpg" alt="The format page of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page Two &middot; The Golf</div>
               <div class="rows">
                 <b>Format</b> &mdash; Team event<br>
@@ -481,6 +495,7 @@
 
           <figure class="invcard">
             <figcaption class="tr">
+              <a class="invthumb" href="invite-1987-details.jpg" target="_blank" rel="noopener"><img src="invite-1987-details.jpg" alt="The details page of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page Three &middot; The Particulars</div>
               <div class="rows">
                 <b>Date:</b> October 3, 1987<br>
@@ -496,7 +511,7 @@
           </figure>
         </div>
 
-        <div class="invnote">The original invitation &mdash; October 3, 1987. Transcribed word for word, preserved spelling and all.</div>
+        <div class="invnote">The original invitation &mdash; October 3, 1987. Transcribed word for word, preserved spelling and all. Tap a page to see the original full size.</div>
       </div>
     </div>
 
