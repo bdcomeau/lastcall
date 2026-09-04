@@ -339,6 +339,18 @@
     0%{opacity:1; transform:rotate(var(--a)) translateX(0) scale(1)}
     100%{opacity:0; transform:rotate(var(--a)) translateX(min(46vw,430px)) scale(.4)}}
   @media (prefers-reduced-motion:reduce){ #lcBoom{display:none;} }
+  /* ⭐ B-364 (s320) — THE SCAN LIGHTBOX. The 1987 pages used to open in a new window
+     (target=_blank on a bare JPG); in the home-screen app / an in-app browser that window
+     has no address bar, no back and no close — a dead end. Now the scan opens OVER the page. */
+  #lcScan{position:fixed; inset:0; z-index:998; background:rgba(13,31,22,.985); display:flex;
+    align-items:center; justify-content:center; padding:16px; cursor:zoom-out;}
+  #lcScan[hidden]{display:none;}
+  #lcScan img{max-width:100%; max-height:100%; border-radius:4px; box-shadow:0 12px 40px rgba(0,0,0,.6); background:#efece3;}
+  #lcScan .x{position:absolute; top:max(14px, env(safe-area-inset-top)); right:16px; width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(246,242,233,.5); background:rgba(13,31,22,.7); color:var(--linen); font-size:22px; line-height:42px;
+    text-align:center; cursor:pointer; font-family:'Cormorant Garamond',serif;}
+  #lcScan .cap{position:absolute; left:0; right:0; bottom:max(14px, env(safe-area-inset-bottom)); text-align:center;
+    font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(246,242,233,.75); font-size:15px; pointer-events:none;}
 
   /* ---------- responsive ---------- */
   @media (max-width:820px){
@@ -489,7 +501,7 @@
         <div class="invgrid">
           <figure class="invcard">
             <figcaption class="tr">
-              <a class="invthumb" href="invite-1987-cover.jpg" target="_blank" rel="noopener"><img src="invite-1987-cover.jpg" alt="The cover of the original 1987 Last Call invitation" loading="lazy"></a>
+              <a class="invthumb" href="invite-1987-cover.jpg" data-scan rel="noopener"><img src="invite-1987-cover.jpg" alt="The cover of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page One &middot; The Cover</div>
               <p class="hand">Last Call Invitational &rsquo;87</p>
               <p>&ldquo;Because you are ugly and you smell most of the time, you have an opportunity to play in this prestigius event.&rdquo;</p>
@@ -498,7 +510,7 @@
 
           <figure class="invcard">
             <figcaption class="tr">
-              <a class="invthumb" href="invite-1987-format.jpg" target="_blank" rel="noopener"><img src="invite-1987-format.jpg" alt="The format page of the original 1987 Last Call invitation" loading="lazy"></a>
+              <a class="invthumb" href="invite-1987-format.jpg" data-scan rel="noopener"><img src="invite-1987-format.jpg" alt="The format page of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page Two &middot; The Golf</div>
               <div class="rows">
                 <b>Format</b> &mdash; Team event<br>
@@ -514,7 +526,7 @@
 
           <figure class="invcard">
             <figcaption class="tr">
-              <a class="invthumb" href="invite-1987-details.jpg" target="_blank" rel="noopener"><img src="invite-1987-details.jpg" alt="The details page of the original 1987 Last Call invitation" loading="lazy"></a>
+              <a class="invthumb" href="invite-1987-details.jpg" data-scan rel="noopener"><img src="invite-1987-details.jpg" alt="The details page of the original 1987 Last Call invitation" loading="lazy"></a>
               <div class="pl">Page Three &middot; The Particulars</div>
               <div class="rows">
                 <b>Date:</b> October 3, 1987<br>
@@ -845,6 +857,8 @@
   <div class="small">Since 1987 · 40th Annual · 2026</div>
 </footer>
 
+<!-- B-364 (s320) — the scan lightbox. One element, three scans; tap anywhere, ✕, Escape or the back swipe closes it. -->
+<div id="lcScan" hidden role="dialog" aria-label="The 1987 invitation"><span class="x" aria-label="Close">&times;</span><img alt=""><div class="cap">Tap anywhere to close</div></div>
 <div id="lcBoom" hidden aria-hidden="true">
   <div class="mid">
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
@@ -894,6 +908,41 @@
       });
     }
   } catch (_e293) {}
+
+  /* ⭐ B-364 (s320) — THE SCAN LIGHTBOX. Fails open: no overlay or anything thrown, and the
+     thumb is an ordinary link to the JPG (same tab now — target=_blank is gone, so even the
+     fallback has a back button). A history entry is pushed on open so the phone's back
+     swipe / hardware back closes the scan instead of leaving the site. */
+  try {
+    var _lcScan = document.getElementById('lcScan');
+    if (_lcScan) {
+      var _lcScanImg = _lcScan.querySelector('img');
+      var _lcScanOpen = false;
+      var _lcScanClose = function (fromPop) {
+        if (!_lcScanOpen) return;
+        _lcScanOpen = false;
+        _lcScan.hidden = true;
+        _lcScanImg.removeAttribute('src');
+        document.body.style.overflow = '';
+        if (!fromPop && history.state && history.state.lcScan) history.back();
+      };
+      document.querySelectorAll('a.invthumb[data-scan]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var img = a.querySelector('img');
+          _lcScanImg.src = a.getAttribute('href');
+          _lcScanImg.alt = img ? (img.getAttribute('alt') || '') : '';
+          _lcScan.hidden = false;
+          _lcScanOpen = true;
+          document.body.style.overflow = 'hidden';
+          try { history.pushState({ lcScan: 1 }, '', location.href); } catch (_h) {}
+        });
+      });
+      _lcScan.addEventListener('click', function () { _lcScanClose(false); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') _lcScanClose(false); });
+      window.addEventListener('popstate', function () { _lcScanClose(true); });
+    }
+  } catch (_e364) {}
 
   window.addEventListener('hashchange', route);
   window.addEventListener('DOMContentLoaded', route);
